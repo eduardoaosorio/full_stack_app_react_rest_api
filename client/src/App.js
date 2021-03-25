@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 
+// components
+import Courses from "./components/Courses";
+import CourseDetail from "./components/CourseDetail";
+import UserSignIn from "./components/UserSignIn";
+import UserSignUp from "./components/UserSignUp";
+import CreateCourse from "./components/CreateCourse";
+import UpdateCourse from "./components/UpdateCourse";
+import Header from "./components/Header";
+
 function App() {
   const [data, setData] = useState("");
 
@@ -13,11 +22,13 @@ function App() {
 
   return (
     <div>
-      <header>
-        <p>
-          <code>{data}</code>
-        </p>
-      </header>
+      <Header />
+      {/* <Courses /> */}
+      {/* <CourseDetail /> */}
+      {/* <UserSignIn /> */}
+      {/* <UserSignUp /> */}
+      {/* <CreateCourse /> */}
+      <UpdateCourse />
     </div>
   );
 }
