@@ -1,35 +1,33 @@
-import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 // components
-import Courses from "./components/Courses";
-import CourseDetail from "./components/CourseDetail";
-import UserSignIn from "./components/UserSignIn";
-import UserSignUp from "./components/UserSignUp";
+import Header from "./components/Header";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
-import Header from "./components/Header";
+import Courses from "./components/Courses";
+import CourseDetail from "./components/CourseDetail";
+import UserSignUp from "./components/UserSignUp";
+import UserSignIn from "./components/UserSignIn";
+import UserSignOut from "./components/UserSignOut";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
-  const [data, setData] = useState("");
-
-  useEffect(() => {
-    // test connection to API
-    fetch("http://localhost:5000/api/courses")
-      .then((res) => res.json())
-      .then((data) => setData(JSON.stringify(data)))
-      .catch((err) => console.log("Something went wrong!\n", err));
-  }, []);
-
   return (
-    <div>
-      <Header />
-      {/* <Courses /> */}
-      {/* <CourseDetail /> */}
-      {/* <UserSignIn /> */}
-      {/* <UserSignUp /> */}
-      {/* <CreateCourse /> */}
-      <UpdateCourse />
-    </div>
+    <BrowserRouter>
+      <div>
+        <Header />
+        <Switch>
+          <PrivateRoute path="/courses/create" component={CreateCourse} />
+          <PrivateRoute path="/courses/:id/update" component={UpdateCourse} />
+          <Route exact path="/courses" component={Courses} />
+          <Route path="/courses/:id" component={CourseDetail} />
+          <Route path="/signup" component={UserSignUp} />
+          <Route path="/signin" component={UserSignIn} />
+          <Route path="/signout" component={UserSignOut} />
+          <Route exact path="/" render={() => <Redirect to={"/courses"} />} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
