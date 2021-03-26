@@ -1,16 +1,33 @@
-function Courses() {
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import data from "../Data";
+
+function Courses({ history }) {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    data.fetchData("/courses").then((data) => setCourses(data));
+  }, []);
+
   return (
     <div className="bounds">
+      {courses.length > 0
+        ? courses.map((course) => (
+            <div key={course.id} className="grid-33">
+              <Link
+                className="course--module course--link"
+                to={`/courses/${course.id}`}
+              >
+                <h4 className="course--label">Course</h4>
+                <h3 className="course--title">{course.title}</h3>
+              </Link>
+            </div>
+          ))
+        : null}
       <div className="grid-33">
-        <a className="course--module course--link" href="course-detail.html">
-          <h4 className="course--label">Course</h4>
-          <h3 className="course--title">Build a Basic Bookcase</h3>
-        </a>
-      </div>
-      <div className="grid-33">
-        <a
+        <Link
           className="course--module course--add--module"
-          href="create-course.html"
+          to="/courses/create"
         >
           <h3 className="course--add--title">
             <svg
@@ -25,7 +42,7 @@ function Courses() {
             </svg>
             New Course
           </h3>
-        </a>
+        </Link>
       </div>
     </div>
   );
