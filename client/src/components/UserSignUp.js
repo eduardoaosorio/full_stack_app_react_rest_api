@@ -1,18 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../Context";
+import { Link } from "react-router-dom";
+import data from "../Data";
 
-function UserSignUp() {
+// VER QUE HAGO CON CONFIRMED PASSWORD PORQUE MI API NO LO USA
+
+function UserSignUp({ history }) {
+  const { actions } = useContext(Context);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    data
+      .createUser({ firstName, lastName, emailAddress, password })
+      .then((array) => {
+        if (array.length) {
+          setErrors(array);
+        } else {
+          actions.signIn(emailAddress, password).then(() => {
+            history.push("/");
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/error"); // ------------------------------------------------- DEFINIR A DONDE REDIRIJO
+      });
+  }
 
   return (
     <div className="bounds">
       <div className="grid-33 centered signin">
         <h1>Sign Up</h1>
         <div>
-          <form>
+          {errors.length > 0 ? (
+            <div className="validation-errors">
+              <h2 className="validation--errors--label">Validation errors</h2>
+              <ul>
+                {errors.map((errorMsg) => (
+                  <li key={btoa(errorMsg)}>{errorMsg}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          <form onSubmit={handleSubmit}>
             <div>
               <input
                 id="firstName"
@@ -21,6 +58,7 @@ function UserSignUp() {
                 className=""
                 placeholder="First Name"
                 value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div>
@@ -31,6 +69,7 @@ function UserSignUp() {
                 className=""
                 placeholder="Last Name"
                 value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             <div>
@@ -41,6 +80,7 @@ function UserSignUp() {
                 className=""
                 placeholder="Email Address"
                 value={emailAddress}
+                onChange={(e) => setEmailAddress(e.target.value)}
               />
             </div>
             <div>
@@ -51,6 +91,7 @@ function UserSignUp() {
                 className=""
                 placeholder="Password"
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
@@ -61,6 +102,7 @@ function UserSignUp() {
                 className=""
                 placeholder="Confirm Password"
                 value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             <div className="grid-100 pad-bottom">
@@ -69,7 +111,10 @@ function UserSignUp() {
               </button>
               <button
                 className="button button-secondary"
-                onclick="event.preventDefault(); location.href='index.html';"
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.push("/courses");
+                }}
               >
                 Cancel
               </button>
@@ -78,7 +123,7 @@ function UserSignUp() {
         </div>
         <p>&nbsp;</p>
         <p>
-          Already have a user account? <a href="sign-in.html">Click here</a> to
+          Already have a user account? <Link to="/signin">Click here</Link> to
           sign in!
         </p>
       </div>
