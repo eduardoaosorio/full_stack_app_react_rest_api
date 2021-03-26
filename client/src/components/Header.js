@@ -1,18 +1,35 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import { Link } from "react-router-dom";
+import { Context } from "../Context";
 
 function Header() {
+  const { authenticatedUser } = useContext(Context);
+
   return (
     <Fragment>
       <div className="header">
         <div className="bounds">
-          <h1 className="header--logo">Courses</h1>
+          <h1 className="header--logo">
+            <Link to="/courses">Courses</Link>
+          </h1>
           <nav>
-            <a className="signup" href="sign-up.html">
-              Sign Up
-            </a>
-            <a className="signin" href="sign-in.html">
-              Sign In
-            </a>
+            {authenticatedUser ? (
+              <React.Fragment>
+                <span>Welcome, {authenticatedUser.firstName}!</span>
+                <Link className="signout" to="/signout">
+                  Sign Out
+                </Link>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Link className="signup" to="/signup">
+                  Sign Up
+                </Link>
+                <Link className="signin" to="/signin">
+                  Sign In
+                </Link>
+              </React.Fragment>
+            )}
           </nav>
         </div>
       </div>
