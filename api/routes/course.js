@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const { Course, User } = require("../models");
 const {
-  checkCourseExistance,
+  checkCourseExistence,
   authenticateUser,
   verifyOwner,
   catchAsync,
@@ -37,7 +37,7 @@ router.get(
 // route will return the corresponding course along with the User that owns that course and a 200 HTTP status code
 router.get(
   "/courses/:id",
-  checkCourseExistance,
+  checkCourseExistence,
   catchAsync(async (req, res, next) => {
     const course = await Course.findByPk(req.params.id, {
       attributes: [
@@ -73,7 +73,7 @@ router.post(
 // route will update the corresponding course and return a 204 HTTP status code and no content
 router.put(
   "/courses/:id",
-  checkCourseExistance,
+  checkCourseExistence,
   authenticateUser,
   verifyOwner,
   catchAsync(async (req, res, next) => {
@@ -87,7 +87,7 @@ router.put(
 // route will delete the corresponding course and return a 204 HTTP status code and no content
 router.delete(
   "/courses/:id",
-  checkCourseExistance,
+  checkCourseExistence,
   authenticateUser,
   verifyOwner,
   catchAsync(async (req, res, next) => {

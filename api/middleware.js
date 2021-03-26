@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const { User, Course } = require("./models");
 
 // middleware function to check if a course exists
-const checkCourseExistance = async (req, res, next) => {
+const checkCourseExistence = async (req, res, next) => {
   try {
     const course = await Course.findByPk(req.params.id);
     if (course) {
@@ -90,7 +90,7 @@ function catchAsync(fn) {
 }
 
 module.exports = {
-  checkCourseExistance,
+  checkCourseExistence,
   authenticateUser,
   catchAsync,
   verifyOwner,
