@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-function CreateCourse() {
+function CreateCourse({ history }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
+  // const [errors, setErrors] = useState({});
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // createCourse
+    console.log("form submitted");
+  }
 
   return (
     <div className="bounds course--detail">
       <h1>Create Course</h1>
       <div>
-        <div>
-          <h2 className="validation--errors--label">Validation errors</h2>
-          <div className="validation-errors">
-            {/* error messages */}
-            <ul>
-              <li>Please provide a value for "Title"</li>
-              <li>Please provide a value for "Description"</li>
-            </ul>
-          </div>
-        </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
@@ -32,6 +29,7 @@ function CreateCourse() {
                   className="input-title course--title--input"
                   placeholder="Course title..."
                   value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
               <p>By Joe Smith</p>
@@ -43,6 +41,7 @@ function CreateCourse() {
                   name="description"
                   className=""
                   placeholder="Course description..."
+                  onChange={(e) => setDescription(e.target.value)}
                 >
                   {description}
                 </textarea>
@@ -62,6 +61,7 @@ function CreateCourse() {
                       className="course--time--input"
                       placeholder="Hours"
                       value={estimatedTime}
+                      onChange={(e) => setEstimatedTime(e.target.value)}
                     />
                   </div>
                 </li>
@@ -73,6 +73,7 @@ function CreateCourse() {
                       name="materialsNeeded"
                       className=""
                       placeholder="List materials..."
+                      onChange={(e) => setMaterialsNeeded(e.target.value)}
                     >
                       {materialsNeeded}
                     </textarea>
@@ -87,7 +88,10 @@ function CreateCourse() {
             </button>
             <button
               className="button button-secondary"
-              onclick="event.preventDefault(); location.href='index.html';"
+              onClick={(e) => {
+                e.preventDefault();
+                history.push("/courses");
+              }}
             >
               Cancel
             </button>
