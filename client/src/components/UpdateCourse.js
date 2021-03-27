@@ -3,6 +3,7 @@ import { Context } from "../Context";
 import data from "../Data";
 
 // VER QUE PASA SI TRATO DE UPDATE O DELETE UN COURSE QUE NO EXISTA
+// ARREGLAR PARA QUE SOLO EL DUENO PUEDA ACCEDER A RUTAS PROTEGIDAS
 
 function UpdateCourse({ history, match }) {
   const { authenticatedUser } = useContext(Context);
@@ -12,7 +13,7 @@ function UpdateCourse({ history, match }) {
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
   const [user, setUser] = useState({});
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     data.fetchData(`/courses/${match.params.id}`).then((data) => {
@@ -26,14 +27,40 @@ function UpdateCourse({ history, match }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // updateCourse
-    console.log("form submitted");
+    // ver si pongo bycrypt aca
+    const { emailAddress, password } = authenticatedUser;
+    const course = {
+      title,
+      description,
+      estimatedTime: estimatedTime === "" ? null : estimatedTime,
+      materialsNeeded: materialsNeeded === "" ? null : materialsNeeded,
+    };
+    data
+      .updateCourse(course, match.params.id, emailAddress, password)
+      .then((array) => {
+        if (array.length > 0) setErrors(array);
+        else history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/error"); // ------------------------------------------------- DEFINIR A DONDE REDIRIJO
+      });
   }
 
   return (
     <div className="bounds course--detail">
       <h1>Update Course</h1>
       <div>
+        {errors.length > 0 ? (
+          <div className="validation-errors">
+            <h2 className="validation--errors--label">Validation errors</h2>
+            <ul>
+              {errors.map((errorMsg) => (
+                <li key={btoa(errorMsg)}>{errorMsg}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         <form onSubmit={handleSubmit}>
           <div className="grid-66">
             <div className="course--header">
