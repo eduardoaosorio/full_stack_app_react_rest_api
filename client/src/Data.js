@@ -84,6 +84,26 @@ const data = {
       throw new Error();
     }
   },
+
+  /* updateCourse() is an async operation that returns a promise.The resolved value of the promise is either 
+  an empty array (if the response is 204), or an array of errors (sent from the API if the response is 400).*/
+  updateCourse: async function (course, courseId, emailAddress, password) {
+    const res = await this.api(`/courses/${courseId}`, "PUT", course, {
+      emailAddress,
+      password,
+    });
+    if (res.status === 204) {
+      return [];
+    } else if (res.status === 401) {
+      // depronto hay que quitar esto para mandar a otra pagina
+      return ["Access Denied"];
+    } else if (res.status === 400) {
+      const data = await res.json();
+      return data.errors;
+    } else {
+      throw new Error();
+    }
+  },
 };
 
 export default data;
