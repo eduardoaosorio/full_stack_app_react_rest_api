@@ -24,9 +24,9 @@ const data = {
     };
     if (body !== null) options.body = JSON.stringify(body);
     if (credentials) {
-      // btoa() is a method to encode the username and password
+      // btoa() is a method to encode the emailAddress and password
       const encodedCredentials = btoa(
-        `${credentials.username}:${credentials.password}`
+        `${credentials.emailAddress}:${credentials.password}`
       );
       options.headers.Authorization = `Basic ${encodedCredentials}`;
     }
@@ -36,9 +36,9 @@ const data = {
   /* getUser() is an async operation that returns a promise. The resolved value of the promise is either an 
   object holding the authenticated user's info (sent from the API if the response is 200), 
   or null (if the response is a 401 Unauthorized HTTP status code). */
-  getUser: async function (username, password) {
+  getUser: async function (emailAddress, password) {
     const res = await this.api(`/users`, "GET", null, {
-      username,
+      emailAddress,
       password,
     });
     if (res.status === 200) {
@@ -57,6 +57,26 @@ const data = {
     const res = await this.api("/users", "POST", user);
     if (res.status === 201) {
       return [];
+    } else if (res.status === 400) {
+      const data = await res.json();
+      return data.errors;
+    } else {
+      throw new Error();
+    }
+  },
+
+  /* createCourse() is an async operation that returns a promise.The resolved value of the promise is either 
+  an empty array (if the response is 201), or an array of errors (sent from the API if the response is 400).*/
+  createCourse: async function (course, emailAddress, password) {
+    const res = await this.api("/courses", "POST", course, {
+      emailAddress,
+      password,
+    });
+    if (res.status === 201) {
+      return [];
+    } else if (res.status === 401) {
+      // depronto hay que quitar esto para mandar a otra pagina
+      return ["Access Denied"];
     } else if (res.status === 400) {
       const data = await res.json();
       return data.errors;
