@@ -1,22 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../Context";
+import data from "../Data";
 
 function CreateCourse({ history }) {
+  const { actions, authenticatedUser } = useContext(Context);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // createCourse
-    console.log("form submitted");
+    // ver si pongo bycrypt aca
+    const { emailAddress, password } = authenticatedUser;
+    const course = {
+      title,
+      description,
+      estimatedTime: estimatedTime === "" ? null : estimatedTime,
+      materialsNeeded: materialsNeeded === "" ? null : materialsNeeded,
+    };
+    data
+      .createCourse(course, emailAddress, password)
+      .then((array) => {
+        if (array.length > 0) setErrors(array);
+        else history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/error"); // ------------------------------------------------- DEFINIR A DONDE REDIRIJO
+      });
   }
 
   return (
     <div className="bounds course--detail">
       <h1>Create Course</h1>
       <div>
+        {errors.length > 0 ? (
+          <div className="validation-errors">
+            <h2 className="validation--errors--label">Validation errors</h2>
+            <ul>
+              {errors.map((errorMsg) => (
+                <li key={btoa(errorMsg)}>{errorMsg}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         <form onSubmit={handleSubmit}>
           <div className="grid-66">
             <div className="course--header">

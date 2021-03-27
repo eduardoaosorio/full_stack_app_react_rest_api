@@ -13,6 +13,7 @@ export const Provider = (props) => {
   async function signIn(emailAddress, password) {
     const user = await data.getUser(emailAddress, password);
     if (user !== null) {
+      user.password = password; // ver si pongo bycrypt aca
       setAuthenticatedUser(user);
       // The first argument passed to Cookies.set() specifies the name of the cookie to set
       // The second argument specifies the value to store in the cookie
