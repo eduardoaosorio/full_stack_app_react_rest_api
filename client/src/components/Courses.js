@@ -6,8 +6,14 @@ function Courses({ history }) {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    data.fetchData("/courses").then((data) => setCourses(data));
-  }, []);
+    let isMounted = true; // used in cleanUp function to prevent memory leak
+    data.fetchData("/courses").then((data) => {
+      if (isMounted) setCourses(data);
+    });
+    return function cleanUp() {
+      isMounted = false;
+    };
+  });
 
   return (
     <div className="bounds">
