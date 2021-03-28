@@ -7,6 +7,7 @@ const data = {
     return fetch(url)
       .then((res) => {
         if (res.ok) return Promise.resolve(res.json());
+        else if (res.status === 404) return Promise.resolve(null);
         else return Promise.reject(new Error(res.statusText));
       })
       .then((data) => data)
@@ -66,7 +67,8 @@ const data = {
   },
 
   /* createCourse() is an async operation that returns a promise.The resolved value of the promise is either 
-  an empty array (if the response is 201), or an array of errors (sent from the API if the response is 400).*/
+  an empty array (if the response is 201), an array with an error (sent from the API if the response is 401),
+   or an array of errors (sent from the API if the response is 400).*/
   createCourse: async function (course, emailAddress, password) {
     const res = await this.api("/courses", "POST", course, {
       emailAddress,
@@ -86,7 +88,8 @@ const data = {
   },
 
   /* updateCourse() is an async operation that returns a promise.The resolved value of the promise is either 
-  an empty array (if the response is 204), or an array of errors (sent from the API if the response is 400).*/
+  an empty array (if the response is 204), an array with an error (sent from the API if the response is 401), 
+  or an array of errors (sent from the API if the response is 400).*/
   updateCourse: async function (course, courseId, emailAddress, password) {
     const res = await this.api(`/courses/${courseId}`, "PUT", course, {
       emailAddress,
@@ -100,6 +103,23 @@ const data = {
     } else if (res.status === 400) {
       const data = await res.json();
       return data.errors;
+    } else {
+      throw new Error();
+    }
+  },
+
+  /* deleteCourse() is an async operation that returns a promise.The resolved value of the promise is either 
+  an empty array (if the response is 204), or an array with an error (sent from the API if the response is 401).*/
+  deleteCourse: async function (courseId, emailAddress, password) {
+    const res = await this.api(`/courses/${courseId}`, "DELETE", null, {
+      emailAddress,
+      password,
+    });
+    if (res.status === 204) {
+      return [];
+    } else if (res.status === 401) {
+      // depronto hay que quitar esto para mandar a otra pagina
+      return ["Access Denied"];
     } else {
       throw new Error();
     }
