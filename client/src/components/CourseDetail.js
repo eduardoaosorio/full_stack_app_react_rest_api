@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../Context";
 import { Link } from "react-router-dom";
 import data from "../Data";
+import ReactMarkdown from "react-markdown";
 
 // ARREGLAR TEMA DE ERRORES CUANDO EL CURSO NO EXISTE
 
@@ -57,7 +58,9 @@ function CourseDetail({ match, history }) {
             <p>By {`${user.firstName} ${user.lastName}`}</p>
           </div>
           <div className="course--description">
-            <p>{course.description}</p>
+            <p>
+              <ReactMarkdown>{course.description}</ReactMarkdown>
+            </p>
           </div>
         </div>
         <div className="grid-25 grid-right">
@@ -71,7 +74,11 @@ function CourseDetail({ match, history }) {
               </li>
               <li className="course--stats--list--item">
                 <h4>Materials Needed</h4>
-                {course.materialsNeeded ? course.materialsNeeded : "None"}
+                {course.materialsNeeded ? (
+                  <ReactMarkdown>{course.materialsNeeded}</ReactMarkdown>
+                ) : (
+                  "None"
+                )}
               </li>
             </ul>
           </div>
