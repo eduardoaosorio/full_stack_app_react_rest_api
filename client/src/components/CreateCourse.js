@@ -71,10 +71,9 @@ function CreateCourse({ history }) {
                   name="description"
                   className=""
                   placeholder="Course description..."
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                >
-                  {description}
-                </textarea>
+                ></textarea>
               </div>
             </div>
           </div>
@@ -103,10 +102,9 @@ function CreateCourse({ history }) {
                       name="materialsNeeded"
                       className=""
                       placeholder="List materials..."
+                      value={materialsNeeded}
                       onChange={(e) => setMaterialsNeeded(e.target.value)}
-                    >
-                      {materialsNeeded}
-                    </textarea>
+                    ></textarea>
                   </div>
                 </li>
               </ul>
