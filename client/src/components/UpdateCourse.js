@@ -2,9 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../Context";
 import data from "../Data";
 
-// VER QUE PASA SI TRATO DE UPDATE O DELETE UN COURSE QUE NO EXISTA
-// ARREGLAR PARA QUE SOLO EL DUENO PUEDA ACCEDER A RUTAS PROTEGIDAS
-
 function UpdateCourse({ history, match }) {
   const { authenticatedUser } = useContext(Context);
 
@@ -17,11 +14,19 @@ function UpdateCourse({ history, match }) {
 
   useEffect(() => {
     data.fetchData(`/courses/${match.params.id}`).then((data) => {
-      setTitle(data.title);
-      setDescription(data.description);
-      setEstimatedTime(data.estimatedTime);
-      setMaterialsNeeded(data.materialsNeeded);
-      setUser(data.User);
+      if (data === null) {
+        history.push("/notfound");
+      } else {
+        if (authenticatedUser.id !== data.userId) {
+          history.push("/forbidden");
+        } else {
+          setTitle(data.title);
+          setDescription(data.description);
+          setEstimatedTime(data.estimatedTime);
+          setMaterialsNeeded(data.materialsNeeded);
+          setUser(data.User);
+        }
+      }
     });
   }, []);
 
@@ -43,7 +48,7 @@ function UpdateCourse({ history, match }) {
       })
       .catch((err) => {
         console.log(err);
-        history.push("/error"); // ------------------------------------------------- DEFINIR A DONDE REDIRIJO
+        history.push("/error");
       });
   }
 

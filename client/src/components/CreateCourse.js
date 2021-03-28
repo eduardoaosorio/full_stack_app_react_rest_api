@@ -29,7 +29,7 @@ function CreateCourse({ history }) {
       })
       .catch((err) => {
         console.log(err);
-        history.push("/error"); // ------------------------------------------------- DEFINIR A DONDE REDIRIJO
+        history.push("/error");
       });
   }
 

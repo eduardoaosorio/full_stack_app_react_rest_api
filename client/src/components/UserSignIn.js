@@ -23,7 +23,7 @@ function UserSignIn({ history, location }) {
       })
       .catch((err) => {
         console.log(err);
-        history.push("/error"); // ------------------------------------------------- DEFINIR A DONDE REDIRIJO
+        history.push("/error");
       });
   }
 

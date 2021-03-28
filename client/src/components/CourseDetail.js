@@ -4,19 +4,16 @@ import { Link } from "react-router-dom";
 import data from "../Data";
 import ReactMarkdown from "react-markdown";
 
-// ARREGLAR TEMA DE ERRORES CUANDO EL CURSO NO EXISTE
-
 function CourseDetail({ match, history }) {
   const { authenticatedUser } = useContext(Context);
 
   const [course, setCourse] = useState({});
   const [user, setUser] = useState({});
-  // const [errors, setErrors] = useState({});
 
   useEffect(() => {
     data.fetchData(`/courses/${match.params.id}`).then((data) => {
       if (data === null) {
-        history.push("/error404"); // ---------------------------------------------DEFINIR A DONDE REDIRIJO
+        history.push("/notfound");
       } else {
         setCourse(data);
         setUser(data.User);
@@ -26,7 +23,16 @@ function CourseDetail({ match, history }) {
 
   function handleDelete() {
     const { emailAddress, password } = authenticatedUser;
-    data.deleteCourse(course.id, emailAddress, password);
+    data
+      .deleteCourse(course.id, emailAddress, password)
+      .then((array) => {
+        if (array.length > 0) alert(array);
+        else history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/error");
+      });
   }
 
   return (
