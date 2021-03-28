@@ -5,7 +5,7 @@ import data from "../Data";
 
 // ARREGLAR TEMA DE ERRORES CUANDO EL CURSO NO EXISTE
 
-function CourseDetail({ match }) {
+function CourseDetail({ match, history }) {
   const { authenticatedUser } = useContext(Context);
 
   const [course, setCourse] = useState({});
@@ -14,13 +14,18 @@ function CourseDetail({ match }) {
 
   useEffect(() => {
     data.fetchData(`/courses/${match.params.id}`).then((data) => {
-      setCourse(data);
-      setUser(data.User);
+      if (data === null) {
+        history.push("/error404"); // ---------------------------------------------DEFINIR A DONDE REDIRIJO
+      } else {
+        setCourse(data);
+        setUser(data.User);
+      }
     });
   }, []);
 
-  function deleteCourse() {
-    console.log("clicked delete button");
+  function handleDelete() {
+    const { emailAddress, password } = authenticatedUser;
+    data.deleteCourse(course.id, emailAddress, password);
   }
 
   return (
@@ -33,7 +38,7 @@ function CourseDetail({ match }) {
                 <Link className="button" to={`${match.url}/update`}>
                   Update Course
                 </Link>
-                <Link className="button" to="/courses" onClick={deleteCourse}>
+                <Link className="button" to="/courses" onClick={handleDelete}>
                   Delete Course
                 </Link>
               </span>
