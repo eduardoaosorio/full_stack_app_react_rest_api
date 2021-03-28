@@ -14,21 +14,21 @@ function Header() {
           </h1>
           <nav>
             {authenticatedUser ? (
-              <React.Fragment>
+              <Fragment>
                 <span>Welcome, {authenticatedUser.firstName}!</span>
                 <Link className="signout" to="/signout">
                   Sign Out
                 </Link>
-              </React.Fragment>
+              </Fragment>
             ) : (
-              <React.Fragment>
+              <Fragment>
                 <Link className="signup" to="/signup">
                   Sign Up
                 </Link>
                 <Link className="signin" to="/signin">
                   Sign In
                 </Link>
-              </React.Fragment>
+              </Fragment>
             )}
           </nav>
         </div>
