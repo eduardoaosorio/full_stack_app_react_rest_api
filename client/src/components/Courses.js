@@ -13,7 +13,7 @@ function Courses({ history }) {
     return function cleanUp() {
       isMounted = false;
     };
-  });
+  }, [courses.length]);
 
   return (
     <div className="bounds">
