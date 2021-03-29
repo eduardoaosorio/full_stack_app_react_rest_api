@@ -3,7 +3,7 @@ import { Context } from "../Context";
 import data from "../Data";
 
 function CreateCourse({ history }) {
-  const { actions, authenticatedUser } = useContext(Context);
+  const { authenticatedUser } = useContext(Context);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
