@@ -34,8 +34,8 @@ function CreateCourse({ history }) {
 
   return (
     <div className="bounds course--detail">
-      <h1>Create Course</h1>
       <div>
+        <h1 className="create-update-h1">Create Course</h1>
         {errors.length > 0 ? (
           <div className="validation-errors">
             <h2 className="validation--errors--label">Validation errors</h2>
