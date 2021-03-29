@@ -64,9 +64,7 @@ function CourseDetail({ match, history }) {
             <p>By {`${user.firstName} ${user.lastName}`}</p>
           </div>
           <div className="course--description">
-            <p>
-              <ReactMarkdown>{course.description}</ReactMarkdown>
-            </p>
+            <ReactMarkdown>{course.description}</ReactMarkdown>
           </div>
         </div>
         <div className="grid-25 grid-right">
