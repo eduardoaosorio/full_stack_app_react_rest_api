@@ -11,14 +11,20 @@ function CourseDetail({ match, history }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    data.fetchData(`/courses/${match.params.id}`).then((data) => {
-      if (data === null) {
-        history.push("/notfound");
-      } else {
-        setCourse(data);
-        setUser(data.User);
-      }
-    });
+    data
+      .fetchData(`/courses/${match.params.id}`)
+      .then((data) => {
+        if (data === null) {
+          history.push("/notfound");
+        } else {
+          setCourse(data);
+          setUser(data.User);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/error");
+      });
   }, []);
 
   function handleDelete() {

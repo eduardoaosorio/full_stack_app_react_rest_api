@@ -7,9 +7,15 @@ function Courses({ history }) {
 
   useEffect(() => {
     let isMounted = true; // used in cleanUp function to prevent memory leak
-    data.fetchData("/courses").then((data) => {
-      if (isMounted) setCourses(data);
-    });
+    data
+      .fetchData("/courses")
+      .then((data) => {
+        if (isMounted) setCourses(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/error");
+      });
     return function cleanUp() {
       isMounted = false;
     };

@@ -4,17 +4,13 @@ const data = {
   // simple function to avoid repeating code when fetching data on various components
   fetchData: function (path) {
     const url = `${this.apiBaseUrl}${path}`;
-    return (
-      fetch(url)
-        .then((res) => {
-          if (res.ok) return Promise.resolve(res.json());
-          else if (res.status === 404) return Promise.resolve(null);
-          else return Promise.reject(new Error(res.statusText));
-        })
-        .then((data) => data)
-        // ver como push history a error aca
-        .catch((err) => console.log("Something went wrong:\n", err))
-    );
+    return fetch(url)
+      .then((res) => {
+        if (res.ok) return Promise.resolve(res.json());
+        else if (res.status === 404) return Promise.resolve(null);
+        else return Promise.reject(new Error(res.statusText));
+      })
+      .then((data) => data);
   },
 
   // api() is function to set up request configuration and then make request

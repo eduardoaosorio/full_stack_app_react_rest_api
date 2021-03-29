@@ -13,21 +13,27 @@ function UpdateCourse({ history, match }) {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    data.fetchData(`/courses/${match.params.id}`).then((data) => {
-      if (data === null) {
-        history.push("/notfound");
-      } else {
-        if (authenticatedUser.id !== data.userId) {
-          history.push("/forbidden");
+    data
+      .fetchData(`/courses/${match.params.id}`)
+      .then((data) => {
+        if (data === null) {
+          history.push("/notfound");
         } else {
-          setTitle(data.title);
-          setDescription(data.description);
-          setEstimatedTime(data.estimatedTime);
-          setMaterialsNeeded(data.materialsNeeded);
-          setUser(data.User);
+          if (authenticatedUser.id !== data.userId) {
+            history.push("/forbidden");
+          } else {
+            setTitle(data.title);
+            setDescription(data.description);
+            setEstimatedTime(data.estimatedTime);
+            setMaterialsNeeded(data.materialsNeeded);
+            setUser(data.User);
+          }
         }
-      }
-    });
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/error");
+      });
   }, []);
 
   function handleSubmit(e) {
