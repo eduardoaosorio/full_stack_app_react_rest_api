@@ -60,8 +60,8 @@ function UpdateCourse({ history, match }) {
 
   return (
     <div className="bounds course--detail">
-      <h1>Update Course</h1>
       <div>
+        <h1 id="update-h1">Update Course</h1>
         {errors.length > 0 ? (
           <div className="validation-errors">
             <h2 className="validation--errors--label">Validation errors</h2>

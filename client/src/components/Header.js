@@ -16,7 +16,9 @@ function Header() {
             {/* conditionally render links based if the user is authenticated */}
             {authenticatedUser ? (
               <Fragment>
-                <span>Welcome, {authenticatedUser.firstName}!</span>
+                <span className="welcome-msg">
+                  Welcome, {authenticatedUser.firstName}!
+                </span>
                 <Link className="signout" to="/signout">
                   Sign Out
                 </Link>

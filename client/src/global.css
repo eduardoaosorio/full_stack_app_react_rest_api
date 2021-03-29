@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 /* line 7, ../sass/reset.sass */
 a,
 abbr,
@@ -201,13 +204,21 @@ svg {
 
 /* line 5, ../sass/global.sass */
 body {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Space Mono", monospace;
   background: #fff;
+}
+
+input {
+  font-family: "Roboto Mono", monospace;
+}
+
+#update-h1 {
+  text-align: center;
 }
 
 /* line 13, ../sass/global.sass */
 .header {
-  background: #57496e;
+  background: #0d335d;
   padding: 20px 0;
   margin-bottom: 30px;
 }
@@ -221,11 +232,11 @@ body {
 }
 /* line 23, ../sass/global.sass */
 .header--logo a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(255, 255, 255);
 }
 /* line 25, ../sass/global.sass */
 .header--logo a:hover {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.8);
 }
 /* line 27, ../sass/global.sass */
 .header--logo .selected {
@@ -242,6 +253,7 @@ body {
 .header nav {
   float: right;
   margin-top: 3px;
+  margin-right: 10px;
 }
 /* line 37, ../sass/global.sass */
 .header nav a {
@@ -261,7 +273,8 @@ body {
   margin-top: -30px;
 }
 /* line 2, ../sass/mixins.sass */
-.actions--bar:before, .actions--bar:after {
+.actions--bar:before,
+.actions--bar:after {
   content: " ";
   display: table;
 }
@@ -282,7 +295,7 @@ h1 {
 
 /* line 61, ../sass/global.sass */
 a {
-  color: #7c689b;
+  color: #1a508b;
   cursor: pointer;
   text-decoration: none;
   -webkit-transition: color 0.2s;
@@ -294,7 +307,7 @@ a {
 
 /* line 66, ../sass/global.sass */
 p {
-  font-family: "Cousine";
+  font-family: "Roboto Mono", monospace;
   margin-bottom: 30px;
 }
 
@@ -305,7 +318,11 @@ p {
 }
 
 /* line 74, ../sass/global.sass */
-.grid, .grid-25, .grid-33, .grid-66, .grid-100 {
+.grid,
+.grid-25,
+.grid-33,
+.grid-66,
+.grid-100 {
   float: left;
   padding: 0 15px;
   box-sizing: border-box;
@@ -339,7 +356,7 @@ p {
 
 /* line 102, ../sass/global.sass */
 .course--module {
-  background: #7c689b;
+  background: #1a508b;
   border-radius: 8px;
   padding: 30px;
   margin-bottom: 30px;
@@ -349,7 +366,8 @@ p {
   box-sizing: border-box;
 }
 /* line 2, ../sass/mixins.sass */
-.course--module:before, .course--module:after {
+.course--module:before,
+.course--module:after {
   content: " ";
   display: table;
 }
@@ -365,7 +383,7 @@ p {
 }
 /* line 116, ../sass/global.sass */
 .course--label {
-  font-family: "Cousine";
+  font-family: "Roboto Mono", monospace;
   font-size: 14px;
   font-weight: 100;
   color: rgba(255, 255, 255, 0.5);
@@ -420,6 +438,9 @@ p {
 /* line 159, ../sass/global.sass */
 .course--detail {
   margin-top: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 /* line 162, ../sass/global.sass */
 .course--header {
@@ -439,14 +460,14 @@ p {
 /* line 171, ../sass/global.sass */
 .course--header p {
   font-size: 18px;
-  color: #b1a5c4;
+  color: #999;
   font-weight: 100;
 }
 /* line 176, ../sass/global.sass */
 .course--title--input {
   font-size: 48px;
   font-weight: bold;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Space Mono", monospace;
 }
 /* line 186, ../sass/global.sass */
 .course--description {
@@ -475,10 +496,11 @@ p {
   border-top: 1px solid #ccc;
   font-size: 16px;
   line-height: 1.8;
-  font-family: "Cousine";
+  font-family: "Roboto Mono", monospace;
 }
 /* line 2, ../sass/mixins.sass */
-.course--description li:before, .course--description li:after {
+.course--description li:before,
+.course--description li:after {
   content: " ";
   display: table;
 }
@@ -514,7 +536,7 @@ p {
 .course--description h1,
 .course--description h2,
 .course--description h3 {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Space Mono", monospace;
   color: #222;
   margin-bottom: 30px;
 }
@@ -540,7 +562,7 @@ p {
 }
 /* line 287, ../sass/global.sass */
 .course--stats--list h4 {
-  font-family: "Cousine";
+  font-family: "Space Mono", monospace;
   font-weight: 100;
   color: #999;
   font-size: 14px;
@@ -555,7 +577,7 @@ p {
 }
 /* line 300, ../sass/global.sass */
 .course--stats--list h3 {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Roboto Mono", monospace;
   font-size: 18px;
 }
 /* line 303, ../sass/global.sass */
@@ -568,12 +590,13 @@ p {
 }
 /* line 307, ../sass/global.sass */
 .course--stats--list > li li {
+  font-family: "Roboto Mono", monospace;
   margin-bottom: 15px;
   list-style-type: circle;
 }
 /* line 311, ../sass/global.sass */
 .course--time--input {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Space Mono", monospace;
   font-size: 18px;
   font-weight: bold;
   margin: 0;
@@ -594,11 +617,11 @@ textarea {
   padding: 15px;
   font-size: 16px;
   margin: 0 0 20px;
-  border: 1px solid #ccc4d8;
+  border: 1px solid #999;
   color: #666;
   line-height: 1.8;
   outline: none;
-  font-family: "Cousine";
+  font-family: "Roboto Mono", monospace;
   box-sizing: border-box;
 }
 /* line 29, ../sass/mixins.sass */
@@ -623,7 +646,7 @@ textarea:-ms-input-placeholder {
 }
 /* line 485, ../sass/global.sass */
 textarea:focus {
-  border-color: #7c689b;
+  border-color: #1a508b;
 }
 
 /* line 488, ../sass/global.sass */
@@ -631,7 +654,7 @@ input {
   width: 100%;
   color: #332a40;
   border-radius: 8px;
-  border: 1px solid #ccc4d8;
+  border: 1px solid #999;
   padding: 15px;
   margin-bottom: 15px;
   outline: none;
@@ -656,7 +679,7 @@ input:-ms-input-placeholder {
 }
 /* line 500, ../sass/global.sass */
 input:focus {
-  border-color: #7c689b;
+  border-color: #1a508b;
 }
 
 /* line 29, ../sass/mixins.sass */
@@ -678,9 +701,11 @@ input:focus {
 
 /* line 507, ../sass/global.sass */
 .button {
-  background: #7c689b;
+  margin-top: 5px;
+  cursor: pointer;
+  background: #1a508b;
   color: #fff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Space Mono", monospace;
   font-size: 18px;
   padding: 15px 30px;
   border: 0;
@@ -701,14 +726,15 @@ input:focus {
 }
 /* line 522, ../sass/global.sass */
 .button:not(.button-secondary):hover {
-  background: #63537d;
+  background: #6382b3;
 }
 
 /* line 525, ../sass/global.sass */
 .button-secondary {
-  color: #7c689b;
+  margin-top: 5px;
+  color: #1a508b;
   background: none;
-  box-shadow: 0 0 0 2px #7c689b inset;
+  box-shadow: 0 0 0 2px #1a508b inset;
   -webkit-transition: box-shadow 0.2s, color 0.2s;
   -moz-transition: box-shadow 0.2s, color 0.2s;
   -ms-transition: box-shadow 0.2s, color 0.2s;
@@ -717,8 +743,8 @@ input:focus {
 }
 /* line 530, ../sass/global.sass */
 .button-secondary:hover {
-  color: #63537d;
-  box-shadow: 0 0 0 2px #63537d inset;
+  color: #6382b3;
+  box-shadow: 0 0 0 2px #6382b3 inset;
 }
 
 /* adds additional padding to the bottom of an element */
@@ -739,15 +765,60 @@ input:focus {
 
 /* styles the validation errors */
 .validation--errors--label {
-  color: #7c689b;
+  color: #1a508b;
   font-size: 28px;
 }
 .validation-errors ul {
-  color: #7c689b;
+  color: #1a508b;
   padding: 15px 0 40px 10px;
 }
 
 /* reduce bottom margin on the course description textarea element */
 .course--description textarea {
   margin-bottom: 20px;
+}
+
+@media screen and (max-width: 690px) {
+  .button-secondary {
+    margin-top: 10px;
+  }
+  .course--title {
+    font-size: 32px;
+  }
+  .course--detail {
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .grid-25,
+  .grid-66 {
+    width: 90%;
+  }
+
+  .grid-25 {
+    order: -1;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .welcome-msg {
+    display: none;
+  }
+
+  .grid-33 {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .button {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .grid-33 {
+    width: 100%;
+  }
 }
