@@ -2,7 +2,7 @@
 
 ## Description
 
-Client for your [my previously created REST API](https://github.com/eduardoaosorio/rest_api_sql). This full stack application provides a way for users to administer a database containing information about courses. Users can interact with the database by retrieving a list of courses, view details for a specific course, as well as create, update and delete courses in the database.
+Client for [my previously created REST API](https://github.com/eduardoaosorio/rest_api_sql). This full stack application provides a way for users to administer a database containing information about courses. Users can interact with the database by retrieving a list of courses, view details for a specific course, as well as create, update and delete courses in the database.
 
 In addition, the application requires users to create an account and sign in to make changes to the database.
 
