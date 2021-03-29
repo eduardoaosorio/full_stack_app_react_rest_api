@@ -3,8 +3,6 @@ import { Context } from "../Context";
 import { Link } from "react-router-dom";
 import data from "../Data";
 
-// VER QUE HAGO CON CONFIRMED PASSWORD PORQUE MI API NO LO USA
-
 function UserSignUp({ history }) {
   const { actions } = useContext(Context);
 
@@ -12,7 +10,6 @@ function UserSignUp({ history }) {
   const [lastName, setLastName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   function handleSubmit(e) {
@@ -92,17 +89,6 @@ function UserSignUp({ history }) {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                className=""
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             <div className="grid-100 pad-bottom">
