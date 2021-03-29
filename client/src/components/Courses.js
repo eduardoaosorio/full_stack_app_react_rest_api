@@ -5,6 +5,7 @@ import data from "../Data";
 function Courses({ history }) {
   const [courses, setCourses] = useState([]);
 
+  // fetch data when component mounts, and when courses array's length change (ie: a course is deleted or created)
   useEffect(() => {
     let isMounted = true; // used in cleanUp function to prevent memory leak
     data

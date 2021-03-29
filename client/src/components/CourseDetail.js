@@ -10,6 +10,7 @@ function CourseDetail({ match, history }) {
   const [course, setCourse] = useState({});
   const [user, setUser] = useState({});
 
+  // fetch data when component mounts
   useEffect(() => {
     data
       .fetchData(`/courses/${match.params.id}`)
@@ -32,6 +33,7 @@ function CourseDetail({ match, history }) {
     data
       .deleteCourse(course.id, emailAddress, password)
       .then((array) => {
+        // if array is not empty (there is an error), so alert user
         if (array.length > 0) alert(array);
         else history.push("/");
       })
@@ -46,6 +48,7 @@ function CourseDetail({ match, history }) {
       <div className="actions--bar">
         <div className="bounds">
           <div className="grid-100">
+            {/* conditionally render links based if the user is authenticated */}
             {authenticatedUser && authenticatedUser.id === course.userId ? (
               <span>
                 <Link className="button" to={`${match.url}/update`}>

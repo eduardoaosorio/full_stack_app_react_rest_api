@@ -12,6 +12,7 @@ function UpdateCourse({ history, match }) {
   const [user, setUser] = useState({});
   const [errors, setErrors] = useState([]);
 
+  // fetch data when component mounts
   useEffect(() => {
     data
       .fetchData(`/courses/${match.params.id}`)
@@ -38,7 +39,6 @@ function UpdateCourse({ history, match }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // ver si pongo bycrypt aca
     const { emailAddress, password } = authenticatedUser;
     const course = {
       title,
@@ -66,6 +66,7 @@ function UpdateCourse({ history, match }) {
           <div className="validation-errors">
             <h2 className="validation--errors--label">Validation errors</h2>
             <ul>
+              {/* conditionally render error messages if any */}
               {errors.map((errorMsg) => (
                 <li key={btoa(errorMsg)}>{errorMsg}</li>
               ))}

@@ -36,6 +36,7 @@ function UserSignUp({ history }) {
       <div className="grid-33 centered signin">
         <h1>Sign Up</h1>
         <div>
+          {/* conditionally render error messages if any */}
           {errors.length > 0 ? (
             <div className="validation-errors">
               <h2 className="validation--errors--label">Validation errors</h2>

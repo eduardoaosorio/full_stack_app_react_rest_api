@@ -13,6 +13,7 @@ function Header() {
             <Link to="/courses">Courses</Link>
           </h1>
           <nav>
+            {/* conditionally render links based if the user is authenticated */}
             {authenticatedUser ? (
               <Fragment>
                 <span>Welcome, {authenticatedUser.firstName}!</span>
